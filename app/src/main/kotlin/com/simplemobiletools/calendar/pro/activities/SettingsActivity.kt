@@ -31,6 +31,12 @@ import java.util.Calendar
 import java.util.Locale
 import kotlin.system.exitProcess
 
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+
+private lateinit var adView: AdView
+
 class SettingsActivity : SimpleActivity() {
     private val GET_RINGTONE_URI = 1
     private val PICK_SETTINGS_IMPORT_SOURCE_INTENT = 2
@@ -40,13 +46,18 @@ class SettingsActivity : SimpleActivity() {
     private var mStoredPrimaryColor = 0
 
     private var eventTypesToExport = listOf<Long>()
-
+    lateinit var adView: AdView
+    lateinit var adRequest: AdRequest
     private val binding by viewBinding(ActivitySettingsBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        MobileAds.initialize(this)
+        adView = findViewById(R.id.adView)
+        adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
         mStoredPrimaryColor = getProperPrimaryColor()
 
         updateMaterialActivityViews(binding.settingsCoordinator, binding.settingsHolder, useTransparentNavigation = true, useTopSearchMenu = false)

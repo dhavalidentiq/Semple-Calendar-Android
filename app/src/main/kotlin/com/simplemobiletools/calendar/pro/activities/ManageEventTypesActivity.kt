@@ -13,15 +13,25 @@ import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.extensions.viewBinding
 import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 
+private lateinit var adView: AdView
 class ManageEventTypesActivity : SimpleActivity(), DeleteEventTypesListener {
-
+    lateinit var adView: AdView
+    lateinit var adRequest: AdRequest
     private val binding by viewBinding(ActivityManageEventTypesBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        MobileAds.initialize(this)
+        adView = findViewById(R.id.adView)
+        adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+        
         setupOptionsMenu()
 
         updateMaterialActivityViews(

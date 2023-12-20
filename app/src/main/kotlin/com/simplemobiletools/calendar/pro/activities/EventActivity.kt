@@ -46,7 +46,11 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import java.util.TimeZone
 import java.util.regex.Pattern
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 
+private lateinit var adView: AdView
 class EventActivity : SimpleActivity() {
     private val LAT_LON_PATTERN = "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?)([,;])\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)\$"
     private val SELECT_TIME_ZONE_INTENT = 1
@@ -82,13 +86,18 @@ class EventActivity : SimpleActivity() {
     private lateinit var mEventStartDateTime: DateTime
     private lateinit var mEventEndDateTime: DateTime
     private lateinit var mEvent: Event
-
+    lateinit var adView: AdView
+    lateinit var adRequest: AdRequest
     private val binding by viewBinding(ActivityEventBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        MobileAds.initialize(this)
+        adView = findViewById(R.id.adView)
+        adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
         setupOptionsMenu()
         refreshMenuItems()
 

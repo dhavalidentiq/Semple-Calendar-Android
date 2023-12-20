@@ -9,3 +9,17 @@ tasks.register<Delete>("clean") {
         rootProject.buildDir
     }
 }
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url = uri("https://storage.googleapis.com/r8-releases/raw")
+        }
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle")
+        classpath("com.android.tools:r8:8.2.16-dev")
+
+    }
+}

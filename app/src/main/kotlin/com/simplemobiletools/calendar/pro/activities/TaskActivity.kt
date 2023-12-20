@@ -27,6 +27,12 @@ import com.simplemobiletools.commons.models.RadioItem
 import org.joda.time.DateTime
 import kotlin.math.pow
 
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+
+private lateinit var adView: AdView
+
 class TaskActivity : SimpleActivity() {
     private var mEventTypeId = REGULAR_EVENT_TYPE_ID
     private lateinit var mTaskDateTime: DateTime
@@ -47,13 +53,18 @@ class TaskActivity : SimpleActivity() {
     private var mLastSavePromptTS = 0L
     private var mIsNewTask = true
     private var mEventColor = 0
-
+    lateinit var adView: AdView
+    lateinit var adRequest: AdRequest
     private val binding by viewBinding(ActivityTaskBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        MobileAds.initialize(this)
+        adView = findViewById(R.id.adView)
+        adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
         setupOptionsMenu()
         refreshMenuItems()
 

@@ -13,6 +13,7 @@ import android.provider.ContactsContract.Contacts
 import android.provider.ContactsContract.Data
 import android.view.MenuItem
 import android.widget.Toast
+import android.util.Log;
 import com.simplemobiletools.calendar.pro.BuildConfig
 import com.simplemobiletools.calendar.pro.R
 import com.simplemobiletools.calendar.pro.adapters.EventListAdapter
@@ -46,6 +47,11 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+
+private lateinit var adView: AdView
 
 class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
@@ -74,12 +80,18 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     private var maxFetchedSearchTS = 0L
     private var searchResultEvents = ArrayList<Event>()
     private var bottomItemAtRefresh: ListItem? = null
-
+    lateinit var adView: AdView
+    lateinit var adRequest: AdRequest
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        MobileAds.initialize(this)
+        adView = findViewById(R.id.adView)
+        adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
         appLaunched(BuildConfig.APPLICATION_ID)
         setupOptionsMenu()
         refreshMenuItems()
@@ -1073,7 +1085,13 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             faqItems.add(FAQItem(com.simplemobiletools.commons.R.string.faq_7_title_commons, com.simplemobiletools.commons.R.string.faq_7_text_commons))
         }
 
+        Log.d("YourActivity", "About activity is about to start")
+
+        // Call startAboutActivity function
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
+
+        // Log after calling startAboutActivity
+        Log.d("YourActivity", "About activity has been started")
     }
 
     private fun searchQueryChanged(text: String) {

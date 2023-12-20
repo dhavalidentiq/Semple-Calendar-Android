@@ -104,4 +104,5 @@ dependencies {
     implementation(libs.androidx.print)
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
+    implementation ("com.google.android.gms:play-services-ads:19.3.0")
 }

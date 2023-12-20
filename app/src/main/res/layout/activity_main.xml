@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scrollbarSize="0dp"
+    android:visibility="visible"
+    tools:visibility="visible">
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_coordinator"
+    android:layout_marginBottom="50dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -92,7 +101,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/activity_margin"
                 android:contentDescription="@string/new_event"
                 android:src="@drawable/ic_plus_vector"
                 app:backgroundTint="@color/color_primary"
@@ -166,3 +174,16 @@
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+ <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:adSize="BANNER"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            />
+</RelativeLayout>
